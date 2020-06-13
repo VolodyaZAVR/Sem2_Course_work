@@ -66,6 +66,10 @@ void MenuEdit(Head* p0);
 
 float safe_scanf();
 
+void MenuSort(Head *p0);
+
+void _reverse_(Head *my_head);
+
 int main()
 {
     MainMenu();
@@ -126,7 +130,7 @@ void Menu(Head* p0)
     kind[1] = MenuEdit;
     kind[2] = MenuDelete;
     //kind[3] = MenuSwap;
-    //kind[4] = MenuSort;
+    kind[4] = MenuSort;
     //kind[5] = MenuSearch;
     kind[6] = MenuCopy;
     kind[7] = SaveNode;
@@ -327,14 +331,13 @@ int safe_scand()
 {
     enum{maxlen=128};
     char *str = NULL;
-    int temp, slen, n = 0, m = 0, res;
+    int temp, slen, n = 0, res;
     do {
         str = malloc(maxlen* sizeof(char));
         if (str != NULL)
         {
             fflush(stdin);
             n = 0;
-            m = 0;
             fgets(str, maxlen, stdin);
             slen = strlen(str);
             for (unsigned int i = 0; i < slen - 1; i++)
@@ -349,7 +352,7 @@ int safe_scand()
                 printf("Enter number:");
             }
         }
-    } while (n > 0 || m > 1);
+    } while (n > 0);
     str[strlen(str) - 1] = '\0';
     res = atoi(str);
     free(str);
@@ -739,7 +742,7 @@ void MenuEdit(Head* p0)
         printf("0 - exit from menu\n");
         printf("Enter your choice: ");
         index = safe_scand();
-        if(index != 0)
+        if(index!=0&&((index>=1)&&(index<=p0->cnt)))
         {
             do
             {
@@ -755,9 +758,10 @@ void MenuEdit(Head* p0)
                 printf("8 - by third mark\n");
                 printf("Enter your choice: ");
                 option = safe_scand();
-                if(option!=0)
+                if(option!=0&&((option>=1)&&(option<=8)))
                 {
                     edit_cart(p0,index,option);
+                    print_list(p0);
                 }
             }while(option!=0);
         }
@@ -807,3 +811,94 @@ float safe_scanf()
     return res;
 }
 
+void MenuSort(Head *p0)
+{
+    int option, way;
+    do
+    {
+        print_list(p0);
+        printf("Kinds of sort:\n");
+        printf("0 - exit from menu (id's will replace)\n");
+        printf("1 - by id\n");
+        printf("2 - by name\n");
+        printf("3 - by subject\n");
+        printf("4 - by averenge\n");
+        printf("5 - by age\n");
+        printf("6 - by minutes\n");
+        printf("7 - by first mark\n");
+        printf("8 - by second mark\n");
+        printf("9 - by third mark\n");
+        printf("10 - reverse list\n");
+        printf("Enter your choice: ");
+        option = safe_scand();
+        if((option>=1) && (option<=9))
+        {
+            do
+            {
+                printf("Select sorting direction :\n");
+                printf("1 - descending\n");
+                printf("2 - ascending\n");
+                printf("Enter your choice: ");
+                way = safe_scand();
+            }while((way < 1) || (way > 2));
+        }
+        if((((option>=1) && (option<=9)) && ((way >= 1) && (way <= 2)))||option==10)
+        {
+            switch(option)
+            {
+                case 1:
+                    //sort_construct(p0,way,compare_id);
+                    break;
+                case 2:
+                    //sort_construct(p0,way,compare_name);
+                    break;
+                case 3:
+                    //sort_construct(p0,way,compare_subject);
+                    break;
+                case 4:
+                    //sort_construct(p0,way,compare_averenge);
+                    break;
+                case 5:
+                    //sort_construct(p0,way,compare_age);
+                    break;
+                case 6:
+                    //sort_construct(p0,way,compare_minutes);
+                    break;
+                case 7:
+                    //sort_construct(p0,way,compare_mark1);
+                    break;
+                case 8:
+                    //sort_construct(p0,way,compare_mark2);
+                    break;
+                case 9:
+                    //sort_construct(p0,way,compare_mark3);
+                    break;
+                case 10:
+                    _reverse_(p0);
+                    break;
+            }
+        }
+    } while(option!=0);
+    rebuild_id(p0);
+}
+
+void _reverse_(Head *my_head)
+{
+    Node *p = NULL, *a = NULL , *b = NULL;
+    int i;
+    p = my_head->first;
+    while(p!=NULL)
+    {
+        a = p->next;
+        b = p->prev;
+        p->next = b;
+        p->prev = a;
+        p = a;
+    }
+    a = my_head->first;
+    b = my_head->last;
+    my_head->first = b;
+    b->prev = NULL;
+    my_head->last = a;
+    a->next = NULL;
+}
