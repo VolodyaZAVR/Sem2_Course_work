@@ -126,7 +126,7 @@ Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)
 
 Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, char str[128]), int flag);
 
-void delete_node2(Head *my_head, int index);
+Head* delete_node2(Head *my_head, int index);
 
 void MenuSearch(Head *p0);
 
@@ -268,7 +268,7 @@ Head* MakeNode(FILE *df)
     char s1[maxlen], sep = ';';
     int slen,i,n;
     Head *p0 = NULL;
-    Node *p = NULL,*p1 = NULL,*my_node=NULL;
+    Node *p = NULL,*p1 = NULL;
     p0 = make_head();
     if(p0!=NULL)
     {
@@ -329,9 +329,9 @@ Head *make_head()
     return ph;
 }
 
-Node *create_node(char **str, int id) // инициализация узла
+Node *create_node(char **str, int id) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 {
-    Node *new_node = NULL; // выделяем память под узел и заполняем его и массива строк
+    Node *new_node = NULL; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     new_node = (Node *) malloc(sizeof(Node));
     new_node->id = id;
     new_node->name = str[0];
@@ -351,24 +351,24 @@ Node *create_node(char **str, int id) // инициализация узла
     free(str[6]);
     free(str[7]);
     free(str);
-    return new_node; // возвращаем адрес узла
+    return new_node; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 }
 
 char **simple_split(char *str, int length, char sep)
-{ // разделение строки на части
+{ // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     char **str_array = NULL;
     int i, j, k, m;
     int key;
     for (j = 0, m = 0; j < length; j++) {
-        if (str[j] == sep) m++;// считаем кол-во знаков разделителей
+        if (str[j] == sep) m++;// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 
     key = 0;
-    str_array = (char **) malloc((m + 1) * sizeof(char *));// выделяем память под массив строк
+    str_array = (char **) malloc((m + 1) * sizeof(char *));// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     if (str_array != NULL) {
         for (i = 0; i <= m; i++) {
             str_array[i] = (char *) malloc(length * sizeof(char));
-            if (str_array[i] != NULL) key = 1;// проходим по строке ища знак разделитель
+            if (str_array[i] != NULL) key = 1;// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             else {
                 key = 0;
                 i = m;
@@ -377,7 +377,7 @@ char **simple_split(char *str, int length, char sep)
         if (key) {
             k = 0;
             m = 0;
-            for (j = 0; j < length; j++) {// как только знак нашелся , заполняем соответствующее элемент массива строк
+            for (j = 0; j < length; j++) {// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ , пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 if (str[j] != sep) str_array[m][j - k] = str[j];
                 else {
                     str_array[m][j - k] = '\0';
@@ -389,7 +389,7 @@ char **simple_split(char *str, int length, char sep)
         }
     }
     str_array[m][j - k] = '\0';
-    return str_array;// возвращаем указатель на массив строк
+    return str_array;// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 }
 
 int safe_scand()
@@ -398,14 +398,14 @@ int safe_scand()
     char *str = NULL;
     int temp, slen, n = 0, res;
     do {
-        str = malloc(maxlen* sizeof(char));
+        str = (char*)malloc(maxlen* sizeof(char));
         if (str != NULL)
         {
             fflush(stdin);
             n = 0;
             fgets(str, maxlen, stdin);
             slen = strlen(str);
-            for (unsigned int i = 0; i < slen - 1; i++)
+            for (int i = 0; i < slen - 1; i++)
             {
                 temp = str[i];
                 if (temp < 48 || temp > 57)n++;
@@ -425,7 +425,7 @@ int safe_scand()
 }
 
 void FreeNode(Head *p0)
-{// освобождение памяти под список
+{// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     Node *p = NULL;
     Node *p1 = NULL;
     if(p0!=NULL)
@@ -434,7 +434,7 @@ void FreeNode(Head *p0)
         {
             p = p0->first;
             while (p != NULL)
-            {// проходим по списку и освобождаем память пока не дойдем до конца
+            {// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 free(p->name);
                 free(p->subject);
                 p1 = p->next;
@@ -820,7 +820,7 @@ float safe_scanf()
     int temp, slen, n = 0, m = 0;
     float res;
     do {
-        str = malloc(maxlen* sizeof(char));
+        str = (char*)malloc(maxlen* sizeof(char));
         if (str != NULL)
         {
             fflush(stdin);
@@ -828,7 +828,7 @@ float safe_scanf()
             m = 0;
             fgets(str, maxlen, stdin);
             slen = strlen(str);
-            for (unsigned int i = 0; i < slen - 1; i++) {
+            for (int i = 0; i < slen - 1; i++) {
             temp = str[i];
             if (temp < 48 || temp > 57)n++;
             if (str[i] == '.')m++;
@@ -930,7 +930,6 @@ void MenuSort(Head *p0)
 void _reverse_(Head *my_head)
 {
     Node *p = NULL, *a = NULL , *b = NULL;
-    int i;
     p = my_head->first;
     while(p!=NULL)
     {
@@ -1160,8 +1159,7 @@ int compare_mark3(Node *p,int way)
     }
 }
 
-void insert_after(Head *head, Node *new_node, Node *current_node) {// вставка узла после текущего
-    Node *node_temp;
+void insert_after(Head *head, Node *new_node, Node *current_node) {// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if (current_node == head->last) {
         current_node->next = new_node;
         new_node->prev = current_node;
@@ -1179,10 +1177,9 @@ void insert_after(Head *head, Node *new_node, Node *current_node) {// вставка уз
 }
 
 
-void insert_before(Head *head, Node *new_node, Node *current_node) {// вставка узла перед определенным элементом
-    Node *node_temp;
-    // обновляем указатели на следующий и предыдущий узлов рядом
-    if (current_node == head->first)// если это новый первый элемент обновляем голову списка
+void insert_before(Head *head, Node *new_node, Node *current_node) {// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    if (current_node == head->first)// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     {
         head->first = new_node;
         new_node->next = current_node;
@@ -1255,6 +1252,7 @@ void MenuAdd(Head* p0)
         printf("0 - exit from menu\n");
         printf("1 - add before node\n");
         printf("2 - add after node\n");
+        printf("Enter your choice: ");
         choise = safe_scand();
         if((choise >= 1) && (choise <= 2))
         {
@@ -1262,13 +1260,14 @@ void MenuAdd(Head* p0)
             {
                 do
                 {
+                    print_list(p0);
                     printf("Select id that you want to insert before:\n");
                     printf("0 - exit from menu\n");
                     printf("Enter your choice: ");
                     index = safe_scand();
                     if((index >= 1) && (index <= p0->cnt))
                     {
-                        p1 = ssearch(p0,index-1);
+                        p1 = ssearch(p0,index);
                         new_node = add_node();
                         insert_before(p0,new_node,p1);
                         rebuild_id(p0);
@@ -1279,13 +1278,14 @@ void MenuAdd(Head* p0)
             {
                 do
                 {
+                    print_list(p0);
                     printf("Select id that you want to insert after:\n");
                     printf("0 - exit from menu\n");
                     printf("Enter your choice: ");
                     index = safe_scand();
                     if((index >= 1) && (index <= p0->cnt))
                     {
-                        p1 = ssearch(p0,index-1);
+                        p1 = ssearch(p0,index);
                         new_node = add_node();
                         insert_after(p0,new_node,p1);
                         rebuild_id(p0);
@@ -1294,7 +1294,7 @@ void MenuAdd(Head* p0)
             }
         }
 
-    }while(index!=0);
+    }while(choise!=0);
 }
 
 int return_name(Node *p, char str[128])
@@ -1435,7 +1435,7 @@ Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)
 {
     Node *p = NULL,*temp = NULL, *p1 = NULL;
     Head *p0 = NULL;
-    int i=0,count = 0;
+    int i=0;
     if(flag == 1)
     {
         p0 = make_head();
@@ -1460,25 +1460,37 @@ Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)
             }
             p = p->next;
         }
-        p0->last = p1;
-        p0->last->next = NULL;
-        p0->first->prev = NULL;
-        p0->cnt = i;
+        if(p0->cnt == 0)
+        {
+            free(p0);
+            p0 = NULL;
+        }
+        else
+        {
+            p0->last = p1;
+            p0->last->next = NULL;
+            p0->first->prev = NULL;
+            p0->cnt = i;
+        }
     }
     else
     {
         p = my_head->first;
-        while(p!=NULL)
+        while((p!=NULL)&&(my_head!=NULL))
         {
             if(!funcName(p,option1,option2))
             {
-                temp = p->next;
-                delete_node2(my_head,i+1);
+                my_head = delete_node2(my_head,i+1);
+                if(my_head!=NULL)
+                {
+                    p = my_head->first;
+                }
             }
             else
-                temp = p->next;
-            p = temp;
-            i++;
+            {
+                p = p->next;
+                i++;
+            }
         }
         p0 = my_head;
     }
@@ -1489,7 +1501,7 @@ Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, c
 {
     Node *p = NULL,*temp = NULL, *p1 = NULL;
     Head *p0 = NULL;
-    int i=0,count = 0;
+    int i=0;
     if(flag == 1)
     {
         p0 = make_head();
@@ -1514,25 +1526,37 @@ Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, c
             }
             p = p->next;
         }
-        p0->last = p1;
-        p0->last->next = NULL;
-        p0->first->prev = NULL;
-        p0->cnt = i;
+        if(p0->cnt == 0)
+        {
+            free(p0);
+            p0 = NULL;
+        }
+        else
+        {
+            p0->last = p1;
+            p0->last->next = NULL;
+            p0->first->prev = NULL;
+            p0->cnt = i;
+        }
     }
     else
     {
         p = my_head->first;
-        while(p!=NULL)
+        while((p!=NULL)&&(my_head!=NULL))
         {
             if(!funcName(p,str))
             {
-                temp = p->next;
-                delete_node2(my_head,i+1);
+                my_head = delete_node2(my_head,i+1);
+                if(my_head!=NULL)
+                {
+                    p = my_head->first;
+                }
             }
             else
-                temp = p->next;
-            p = temp;
-            i++;
+            {
+                p = p->next;
+                i++;
+            }
         }
         p0 = my_head;
     }
@@ -1584,9 +1608,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct2(p1,input,return_name,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1608,9 +1633,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct2(p1,input,return_subject,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1638,9 +1664,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1,option2,return_averenge,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1668,9 +1695,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1,option2,return_age,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1698,9 +1726,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1,option2,return_minutes,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1728,9 +1757,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1,option2,return_mark1,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1758,9 +1788,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1,option2,return_mark2,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1788,9 +1819,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1, option2, return_mark3,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1818,9 +1850,10 @@ void MenuSearch(Head *p0)
                     {
                         p1 = search_construct1(p1,option1,option2,return_all_marks,2);
                     }
-                    if(p1->cnt==0)
+                    if(p1==NULL)
                     {
                         printf("Searched list is empty\n");
+                        option = 0;
                     }
                     else
                     {
@@ -1831,46 +1864,70 @@ void MenuSearch(Head *p0)
             }
         }
     } while(option != 0);
-    do
+    if(p1!=NULL)
     {
-    printf("Do you want to save this list in a separate file?\n");
-        printf("1 - YES\n");
-        printf("2 - NO\n");
-        option3 = safe_scand();
-    }while((option3<1)||(option3>2));
-    if(option3 == 1)
-    {
-        SaveNode(p1);
+        do
+        {
+            printf("Do you want to save this list in a separate file?\n");
+            printf("1 - YES\n");
+            printf("2 - NO\n");
+            option3 = safe_scand();
+        }while((option3<1)||(option3>2));
+        if(option3 == 1)
+        {
+            SaveNode(p1);
+        }
+        free(p1);
     }
-    free(p1);
 }
 
-void delete_node2(Head *my_head, int index)
+Head* delete_node2(Head *my_head, int index)
 {
-    Node *p = my_head -> first;
+    Node *p = NULL;
     int i = 1;
-    while(i < index)
+    if(my_head != NULL)
     {
-        p = p -> next;
-        i++;
+        p = my_head->first;
+        if(my_head->cnt>1)
+        {
+            while(i < index)
+            {
+                p = p -> next;
+                    i++;
+            }
+            if(p == my_head->first)
+            {
+                my_head->first = p->next;
+                p->next->prev = NULL;
+            }
+            else if(p == my_head->last)
+            {
+                my_head->last = p->prev;
+                p->prev->next = NULL;
+            }
+            else
+            {
+                p->next->prev = p->prev;
+                p->prev->next = p->next;
+            }
+            free(p);
+            my_head->cnt -= 1;
+        }
+        else if(my_head->cnt ==1)
+        {
+            p = my_head ->first;
+            free(p);
+            my_head ->cnt = 0;
+            free(my_head);
+            return NULL;
+        }
+        else if(my_head ->cnt ==0)
+        {
+            free(my_head);
+            return NULL;
+        }
     }
-    if(p == my_head->first)
-    {
-        my_head->first = p->next;
-        p->next->prev = NULL;
-    }
-    else if(p == my_head->last)
-    {
-        my_head->last = p->prev;
-        p->prev->next = NULL;
-    }
-    else
-    {
-        p->next->prev = p->prev;
-        p->prev->next = p->next;
-    }
-    free(p);
-    my_head->cnt -= 1;
+    return my_head;
 }
 
 void add_first(Head *my_head, Node *new_node)
@@ -1887,6 +1944,7 @@ Head* MenuAddFirst()
     p0 = make_head();
     new_node = add_node();
     add_first(p0,new_node);
+    return p0;
 }
 
 void PrintHelp()
