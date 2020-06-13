@@ -48,6 +48,18 @@ void print_header();
 
 void print_list(Head *my_head);
 
+void MenuCopy(Head *p0);
+
+Node* ssearch(Head* p0, int index);
+
+void copy_node(Head *p0, int index1, int index2);
+
+void rebuild_id(Head* p0);
+
+void MenuDelete(Head *p0);
+
+void delete_node(Head *my_head, int index);
+
 int main()
 {
     MainMenu();
@@ -106,11 +118,11 @@ void Menu(Head* p0)
     void (*kind[8])(Head *my_head);
     //kind[0] = MenuAdd;
     //kind[1] = MenuEdit;
-    //kind[2] = MenuDelete;
+    kind[2] = MenuDelete;
     //kind[3] = MenuSwap;
     //kind[4] = MenuSort;
     //kind[5] = MenuSearch;
-    //kind[6] = MenuCopy;
+    kind[6] = MenuCopy;
     kind[7] = SaveNode;
     int choise;
     do
@@ -120,11 +132,11 @@ void Menu(Head* p0)
         printf("0 - go to exit\n");
         //printf("1 - sort node\n");
         //printf("2 - search at node\n");
-        //printf("3 - delete node\n");
+        printf("3 - delete node\n");
         //printf("4 - swap node\n");
         //printf("5 - edit node\n");
         //printf("6 - add node\n");
-        //printf("7 - copy node\n");
+        printf("7 - copy node\n");
         printf("8 - save node\n");
         printf("Enter your choice: ");
         choise = safe_scand();
@@ -433,4 +445,221 @@ void print_list(Head *my_head)
             p->id,p->name,p->subject,p->averenge,p->age,p->minutes,p->mark[0],p->mark[1],p->mark[2]);
         p = p->next;
     }
+}
+
+void MenuCopy(Head *p0)
+{
+    int index1, index2;
+    do
+    {
+        print_list(p0);
+        printf("Select id's that you want to copy:\n");
+        printf("0 - exit from menu\n");
+        printf("Enter first id: ");
+        index1 = safe_scand();
+        if(index1!=0)
+        {
+            printf("Enter second id: ");
+            index2 = safe_scand();
+            if ((index2!=0) && (index1!=index2)&&((index1>=1)&&(index1<=p0->cnt))&&((index2>=1)&&(index2<=p0->cnt)))
+            {
+                copy_node(p0,index1,index2);
+            }
+        }
+    }while(index1!=0);
+}
+
+Node* ssearch(Head* p0, int index)
+{
+    Node *p = p0 -> first;
+    int i = 1;
+    while(i < index)
+    {
+        p = p -> next;
+        i++;
+    }
+    return p;
+}
+
+void copy_node(Head *p0, int index1, int index2)
+{
+    Node* p1 = NULL, *p2 = NULL;
+    p1 = ssearch(p0,index1);
+    p2 = ssearch(p0,index2);
+    strcpy(p2->name,p1->name);
+    strcpy(p2->subject,p1->subject);
+    p2->averenge = p1->averenge;
+    p2->age = p1->age;
+    p2->minutes=p1->minutes;
+    p2->mark[0]=p1->mark[0];
+    p2->mark[1]=p1->mark[1];
+    p2->mark[2]=p1->mark[2];
+}
+/*
+void swap_elem(Head* p0,int index1,int index2)
+{
+    Node *p1 = NULL, *p2 = NULL, *a = NULL, *b = NULL, *c = NULL , *d = NULL;
+    p1 = ssearch(p0,index1);
+    p2 = ssearch(p0,index2);
+    if(p1->next == p2)
+    {
+        p1->prev->next = p2;
+        p2->next->prev = p1;
+        p1->next = p2->next;
+        p2->prev = p1->prev;
+        p1->prev = p2;
+        p2->next = p1;
+        if(p2 == p0->last)
+            p0->last = p1;
+        if(p1 == p0->first)
+            p0->first = p2;
+    }
+    else
+    {
+        p1->next = p2->next;
+        p1->
+    }
+    if(p1->next == p2)
+    {
+        if(p2 == p0->last)
+        {
+
+        }
+        a = p1->prev;
+        b = p2->next;
+        if (p1 == p0->first)
+            p0->first = p2;
+        if (p2 == p0->last)
+            p0->last = p1;
+        a->next = p2;
+        b->prev = p1;
+        p2->prev = a;
+        p2->next = p1;
+        p1->prev = p2;
+        p1->next = b;
+    }
+    else if (p1->prev == p2)
+    {
+        a = p1->next;
+        b = p2->prev;
+        p0->first = p2;
+        p0->last = p1;
+        a->prev = p2;
+        b->next = p1;
+        p2->next = a;
+        p2->prev = p1;
+        p1->next = p2;
+        p1->prev = b;
+    }
+    else
+    {
+        a = p1->prev;
+        b = p1->next;
+        c = p2->prev;
+        d = p2->next;
+        if (p1 == p0->first)
+            p0->first = p2;
+        if (p2 == p0->last)
+            p0->last = p1;
+        a->next = p2;
+        b->prev = p2;
+        p2->prev = a;
+        p2->next = b;
+        c->next = p1;
+        d->prev = p1;
+        p1->prev = c;
+        p1->next = d;
+    }
+}
+
+void MenuSwap(Head* p0)
+{
+    int index1, index2;
+    do
+    {
+        if(p0->cnt>=2)
+        {
+            print_list(p0);
+            printf("Select id's that you want to swipe (first index is lower then second):\n");
+            printf("0 - exit from menu\n");
+            printf("Enter first id: ");
+            index1 = safe_scand();
+            if(index1!=0)
+            {
+                printf("Enter second id: ");
+                index2 = safe_scand();
+                if (index1 < index2)
+                {
+                    swap_elem(p0,index1,index2);
+                    rebuild_id(p0);
+                }
+            }
+        }
+        else
+            index1 = 0;
+
+    }while(index1!=0);
+}
+*/
+void rebuild_id(Head* p0)
+{
+    Node *p = p0->first;
+    int i=1;
+    while(p!=NULL)
+    {
+        p->id = i;
+        p = p->next;
+        i++;
+    }
+}
+
+void MenuDelete(Head *p0)
+{
+    int index;
+    if(p0->cnt>1)
+    {
+        do
+        {
+            print_list(p0);
+            printf("Select id that you want to delete:\n");
+            printf("0 - exit from menu\n");
+            printf("Enter your choice: ");
+            index = safe_scand();
+            if(index!=0&&((index>=1)&&(index<=p0->cnt)))
+            {
+                delete_node(p0,index);
+            }
+            rebuild_id(p0);
+        }while((index!=0)&&(p0->cnt!=1));
+    }
+}
+
+void delete_node(Head *my_head, int index)
+{
+    Node *p = my_head -> first;
+    int i = 1;
+    while(i < index)
+    {
+        p = p -> next;
+        i++;
+    }
+    if(p == my_head->first)
+    {
+        my_head->first = p->next;
+        p->next->prev = NULL;
+    }
+    else if(p == my_head->last)
+    {
+        my_head->last = p->prev;
+        p->prev->next = NULL;
+    }
+    else
+    {
+        p->next->prev = p->prev;
+        p->prev->next = p->next;
+    }
+    free(p->name);
+    free(p->subject);
+    free(p);
+    my_head->cnt -= 1;
 }
