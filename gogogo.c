@@ -70,6 +70,30 @@ void MenuSort(Head *p0);
 
 void _reverse_(Head *my_head);
 
+void sort_construct(Head *my_head, int n, int (*funcName)(Node *p,int way));
+
+int compare_id(Node *p, int way);
+
+int compare_name(Node *p, int way);
+
+int compare_subject(Node *p, int way);
+
+int compare_averenge(Node *p, int way);
+
+int compare_age(Node *p, int way);
+
+int compare_minutes(Node *p, int way);
+
+int compare_mark1(Node *p,int way);
+
+int compare_mark2(Node *p,int way);
+
+int compare_mark3(Node *p,int way);
+
+void MenuSwap(Head* p0);
+
+void swap_elem(Head* p0,int index1,int index2);
+
 int main()
 {
     MainMenu();
@@ -129,7 +153,7 @@ void Menu(Head* p0)
     //kind[0] = MenuAdd;
     kind[1] = MenuEdit;
     kind[2] = MenuDelete;
-    //kind[3] = MenuSwap;
+    kind[3] = MenuSwap;
     kind[4] = MenuSort;
     //kind[5] = MenuSearch;
     kind[6] = MenuCopy;
@@ -140,12 +164,12 @@ void Menu(Head* p0)
         print_list(p0);
         printf("Chose what are you want to do :\n");
         printf("0 - go to exit\n");
-        //printf("1 - sort node\n");
+        //printf("1 - add node\n");
         printf("2 - edit node\n");
         printf("3 - delete node\n");
-        //printf("4 - swap node\n");
-        //printf("5 - search at node\n");
-        //printf("6 - add node\n");
+        printf("4 - swap node\n");
+        printf("5 - sort node\n");
+        //printf("6 - search at node\n");
         printf("7 - copy node\n");
         printf("8 - save node\n");
         printf("Enter your choice: ");
@@ -504,36 +528,18 @@ void copy_node(Head *p0, int index1, int index2)
     p2->mark[1]=p1->mark[1];
     p2->mark[2]=p1->mark[2];
 }
-/*
+
 void swap_elem(Head* p0,int index1,int index2)
 {
     Node *p1 = NULL, *p2 = NULL, *a = NULL, *b = NULL, *c = NULL , *d = NULL;
     p1 = ssearch(p0,index1);
     p2 = ssearch(p0,index2);
+    a = p0->first;
+    b = p0->last;
+    a->prev = b;
+    b->next = a;
     if(p1->next == p2)
     {
-        p1->prev->next = p2;
-        p2->next->prev = p1;
-        p1->next = p2->next;
-        p2->prev = p1->prev;
-        p1->prev = p2;
-        p2->next = p1;
-        if(p2 == p0->last)
-            p0->last = p1;
-        if(p1 == p0->first)
-            p0->first = p2;
-    }
-    else
-    {
-        p1->next = p2->next;
-        p1->
-    }
-    if(p1->next == p2)
-    {
-        if(p2 == p0->last)
-        {
-
-        }
         a = p1->prev;
         b = p2->next;
         if (p1 == p0->first)
@@ -579,6 +585,10 @@ void swap_elem(Head* p0,int index1,int index2)
         p1->prev = c;
         p1->next = d;
     }
+    a = p0->first;
+    b = p0->last;
+    a->prev = NULL;
+    b->next = NULL;
 }
 
 void MenuSwap(Head* p0)
@@ -586,30 +596,24 @@ void MenuSwap(Head* p0)
     int index1, index2;
     do
     {
-        if(p0->cnt>=2)
+        print_list(p0);
+        printf("Select id's that you want to swipe (first index is lower then second):\n");
+        printf("0 - exit from menu\n");
+        printf("Enter first id: ");
+        index1 = safe_scand();
+        if(index1!=0)
         {
-            print_list(p0);
-            printf("Select id's that you want to swipe (first index is lower then second):\n");
-            printf("0 - exit from menu\n");
-            printf("Enter first id: ");
-            index1 = safe_scand();
-            if(index1!=0)
+            printf("Enter second id: ");
+            index2 = safe_scand();
+            if ((index1 < index2)&&(((index1>=1)&&(index1<=p0->cnt))&&((index2>=1)&&(index2<=p0->cnt))))
             {
-                printf("Enter second id: ");
-                index2 = safe_scand();
-                if (index1 < index2)
-                {
-                    swap_elem(p0,index1,index2);
-                    rebuild_id(p0);
-                }
+                swap_elem(p0,index1,index2);
+                rebuild_id(p0);
             }
         }
-        else
-            index1 = 0;
-
     }while(index1!=0);
 }
-*/
+
 void rebuild_id(Head* p0)
 {
     Node *p = p0->first;
@@ -847,31 +851,31 @@ void MenuSort(Head *p0)
             switch(option)
             {
                 case 1:
-                    //sort_construct(p0,way,compare_id);
+                    sort_construct(p0,way,compare_id);
                     break;
                 case 2:
-                    //sort_construct(p0,way,compare_name);
+                    sort_construct(p0,way,compare_name);
                     break;
                 case 3:
-                    //sort_construct(p0,way,compare_subject);
+                    sort_construct(p0,way,compare_subject);
                     break;
                 case 4:
-                    //sort_construct(p0,way,compare_averenge);
+                    sort_construct(p0,way,compare_averenge);
                     break;
                 case 5:
-                    //sort_construct(p0,way,compare_age);
+                    sort_construct(p0,way,compare_age);
                     break;
                 case 6:
-                    //sort_construct(p0,way,compare_minutes);
+                    sort_construct(p0,way,compare_minutes);
                     break;
                 case 7:
-                    //sort_construct(p0,way,compare_mark1);
+                    sort_construct(p0,way,compare_mark1);
                     break;
                 case 8:
-                    //sort_construct(p0,way,compare_mark2);
+                    sort_construct(p0,way,compare_mark2);
                     break;
                 case 9:
-                    //sort_construct(p0,way,compare_mark3);
+                    sort_construct(p0,way,compare_mark3);
                     break;
                 case 10:
                     _reverse_(p0);
@@ -901,4 +905,216 @@ void _reverse_(Head *my_head)
     b->prev = NULL;
     my_head->last = a;
     a->next = NULL;
+}
+
+void sort_construct(Head *my_head, int n, int (*funcName)(Node *p,int way))
+{
+    Node *p1 = NULL, *a = NULL,*b = NULL,*c = NULL,*d = NULL;
+    int flag=1,i,k=0;
+    a = my_head->first;
+    b = my_head->last;
+    a->prev = b;
+    b->next = a;
+    while(flag)
+    {
+        flag=0;
+        p1 = my_head->first;
+        for(i=0 ;i < my_head->cnt && p1!=my_head->last; i++)
+        {
+            if(funcName(p1,n))
+            {
+                a = p1->prev;
+                b = p1;
+                c = p1->next;
+                d = p1->next->next;
+
+                if (b == my_head->first) my_head->first = c;
+                if (c == my_head->last) my_head->last = b;
+
+                a->next = c;
+                b->next = d;
+                c->next = b;
+
+                b->prev = c;
+                c->prev = a;
+                d->prev = b;
+                flag=1;
+                k=1;
+            }
+            if(k)
+            {
+                k=0;
+            }
+            else
+            {
+                p1 = p1->next;
+            }
+        }
+    }
+    a = my_head->first;
+    b = my_head->last;
+    a->prev = NULL;
+    b->next = NULL;
+}
+
+int compare_id(Node *p, int way)
+{
+    if(way==1)
+    {
+        if(p->id > p->next->id)
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->id < p->next->id)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_name(Node *p, int way)
+{
+    if(way==1)
+    {
+        if(strcmp(p->name,p->next->name)>0)
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(strcmp(p->name,p->next->name)<0)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_subject(Node *p, int way)
+{
+    if(way==1)
+    {
+        if(strcmp(p->subject,p->next->subject)>0)
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(strcmp(p->subject,p->next->subject)<0)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_averenge(Node *p, int way)
+{
+    if(way==1)
+    {
+        if(p->averenge > p->next->averenge)
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->averenge < p->next->averenge)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_age(Node *p, int way)
+{
+    if(way==1)
+    {
+        if(p->age > p->next->age)
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->age < p->next->age)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_minutes(Node *p, int way)
+{
+    if(way==1)
+    {
+        if(p->minutes > p->next->minutes)
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->minutes < p->next->minutes)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_mark1(Node *p,int way)
+{
+    if(way==1)
+    {
+        if(p->mark[0] > p->next->mark[0])
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->mark[0] < p->next->mark[0])
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_mark2(Node *p,int way)
+{
+    if(way==1)
+    {
+        if(p->mark[1] > p->next->mark[1])
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->mark[1] < p->next->mark[1])
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int compare_mark3(Node *p,int way)
+{
+    if(way==1)
+    {
+        if(p->mark[2] > p->next->mark[2])
+            return 1;
+        else
+            return 0;
+    }
+    else
+    {
+        if(p->mark[2] < p->next->mark[2])
+            return 1;
+        else
+            return 0;
+    }
 }
