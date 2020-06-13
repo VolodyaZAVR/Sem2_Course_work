@@ -94,6 +94,48 @@ void MenuSwap(Head* p0);
 
 void swap_elem(Head* p0,int index1,int index2);
 
+void insert_after(Head *head, Node *new_node, Node *current_node);
+
+void insert_before(Head *head, Node *new_node, Node *current_node);
+
+Node* add_node();
+
+void MenuAdd(Head* p0);
+
+int return_name(Node *p, char str[128]);
+
+int return_subject(Node *p, char str[128]);
+
+int return_averenge(Node *p,int option1, int option2);
+
+int return_age(Node *p,int option1, int option2);
+
+int return_minutes(Node *p,int option1, int option2);
+
+int return_mark1(Node *p,int option1, int option2);
+
+int return_mark2(Node *p,int option1, int option2);
+
+int return_mark3(Node *p,int option1, int option2);
+
+int return_all_marks(Node *p,int option1, int option2);
+
+Node* clone_node(Node* p);
+
+Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)(Node *p,int option1, int option2), int flag);
+
+Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, char str[128]), int flag);
+
+void delete_node2(Head *my_head, int index);
+
+void MenuSearch(Head *p0);
+
+void add_first(Head *my_head, Node *new_node);
+
+Head* MenuAddFirst();
+
+void PrintHelp();
+
 int main()
 {
     MainMenu();
@@ -107,28 +149,27 @@ void MainMenu()
 {
     Head *p0 = NULL;
     int choise;
-    Head *(*kind[3])();
+    Head *(*kind[2])();
     kind[0] = GettingFile;
-    //kind[1] = MenuAddFirst;
-    //kind[2] = PrintHelp;
+    kind[1] = MenuAddFirst;
     do
     {
         printf("Chose what are you want to do :\n");
         printf("0 - exit from program\n");
         printf("1 - get list from file\n");
         printf("2 - create new node\n");
-        //printf("3 - print help list\n");
+        printf("3 - print help list\n");
         printf("Enter your choice: ");
         choise = safe_scand();
-        if((choise>=0)&&(choise<=2))
+        if((choise>=0)&&(choise<=3))
         {
             switch(choise)
             {
                 case 0:
                     break;
-                //case 3:
-                    //kind[choise - 1]();
-                    //break;
+                case 3:
+                    PrintHelp();
+                    break;
                 default:
                     p0 = kind[choise - 1]();
                     if (p0 != NULL)
@@ -150,12 +191,12 @@ void MainMenu()
 void Menu(Head* p0)
 {
     void (*kind[8])(Head *my_head);
-    //kind[0] = MenuAdd;
+    kind[0] = MenuAdd;
     kind[1] = MenuEdit;
     kind[2] = MenuDelete;
     kind[3] = MenuSwap;
     kind[4] = MenuSort;
-    //kind[5] = MenuSearch;
+    kind[5] = MenuSearch;
     kind[6] = MenuCopy;
     kind[7] = SaveNode;
     int choise;
@@ -164,12 +205,12 @@ void Menu(Head* p0)
         print_list(p0);
         printf("Chose what are you want to do :\n");
         printf("0 - go to exit\n");
-        //printf("1 - add node\n");
+        printf("1 - add node\n");
         printf("2 - edit node\n");
         printf("3 - delete node\n");
         printf("4 - swap node\n");
         printf("5 - sort node\n");
-        //printf("6 - search at node\n");
+        printf("6 - search at node\n");
         printf("7 - copy node\n");
         printf("8 - save node\n");
         printf("Enter your choice: ");
@@ -1117,4 +1158,738 @@ int compare_mark3(Node *p,int way)
         else
             return 0;
     }
+}
+
+void insert_after(Head *head, Node *new_node, Node *current_node) {// вставка узла после текущего
+    Node *node_temp;
+    if (current_node == head->last) {
+        current_node->next = new_node;
+        new_node->prev = current_node;
+        new_node->next = NULL;
+        head->last=new_node;
+
+    } else {
+        new_node->next = current_node->next;
+        new_node->prev = current_node;
+        current_node->next = new_node;
+    }
+    head->cnt++;
+
+
+}
+
+
+void insert_before(Head *head, Node *new_node, Node *current_node) {// вставка узла перед определенным элементом
+    Node *node_temp;
+    // обновляем указатели на следующий и предыдущий узлов рядом
+    if (current_node == head->first)// если это новый первый элемент обновляем голову списка
+    {
+        head->first = new_node;
+        new_node->next = current_node;
+        new_node->prev = NULL;
+        current_node->prev = new_node;
+    } else {
+        current_node->prev->next = new_node;
+        new_node->prev = current_node->prev;
+        new_node->next = current_node;
+        current_node->prev = new_node;
+    }
+    head->cnt++;
+
+
+}
+
+Node* add_node()
+{
+    enum {maxlen = 80};
+    char str[maxlen];
+    float option1;
+    int option2 , slen;
+    Node *new_node=NULL;
+    new_node = (Node*)malloc(sizeof(Node));
+    new_node->name = (char*)malloc(maxlen*sizeof(char));
+    new_node->subject = (char*)malloc(maxlen*sizeof(char));
+    printf("Enter name\n");
+    fflush(stdin);
+    fgets(str,maxlen,stdin);
+    slen=strlen(str);
+    str[slen-1]='\0';
+    strcpy(new_node->name,str);
+    printf("Enter subject\n");
+    fflush(stdin);
+    fgets(str,maxlen,stdin);
+    slen=strlen(str);
+    str[slen-1]='\0';
+    strcpy(new_node->subject,str);
+    printf("Enter age\n");
+    option2 = safe_scand();
+    new_node->age = option2;
+    printf("Enter minutes\n");
+    option2 = safe_scand();
+    new_node->minutes = option2;
+    printf("Enter first mark\n");
+    option2 = safe_scand();
+    new_node->mark[0] = option2;
+    printf("Enter second mark\n");
+    option2 = safe_scand();
+    new_node->mark[1] = option2;
+    printf("Enter third mark\n");
+    option2 = safe_scand();
+    new_node->mark[2] = option2;
+    option1 = (new_node->mark[0]+new_node->mark[1]+new_node->mark[2])/3.;
+    new_node->averenge = option1;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    new_node->id = 1;
+    return new_node;
+}
+
+void MenuAdd(Head* p0)
+{
+    Node *new_node = NULL, *p1 = NULL;
+    int index, choise;
+    do
+    {
+        print_list(p0);
+        printf("You want to insert after or before?\n");
+        printf("0 - exit from menu\n");
+        printf("1 - add before node\n");
+        printf("2 - add after node\n");
+        choise = safe_scand();
+        if((choise >= 1) && (choise <= 2))
+        {
+            if(choise == 1)
+            {
+                do
+                {
+                    printf("Select id that you want to insert before:\n");
+                    printf("0 - exit from menu\n");
+                    printf("Enter your choice: ");
+                    index = safe_scand();
+                    if((index >= 1) && (index <= p0->cnt))
+                    {
+                        p1 = ssearch(p0,index-1);
+                        new_node = add_node();
+                        insert_before(p0,new_node,p1);
+                        rebuild_id(p0);
+                    }
+                }while(index!=0);
+            }
+            else
+            {
+                do
+                {
+                    printf("Select id that you want to insert after:\n");
+                    printf("0 - exit from menu\n");
+                    printf("Enter your choice: ");
+                    index = safe_scand();
+                    if((index >= 1) && (index <= p0->cnt))
+                    {
+                        p1 = ssearch(p0,index-1);
+                        new_node = add_node();
+                        insert_after(p0,new_node,p1);
+                        rebuild_id(p0);
+                    }
+                }while(index!=0);
+            }
+        }
+
+    }while(index!=0);
+}
+
+int return_name(Node *p, char str[128])
+{
+    if(strcmp(p->name,str)==0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_subject(Node *p, char str[128])
+{
+    if(strcmp(p->subject,str)==0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_averenge(Node *p,int option1, int option2)
+{
+    if((p->averenge >= option1)&&(p->averenge <= option2))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_age(Node *p,int option1, int option2)
+{
+    if((p->age >= option1)&&(p->age <= option2))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_minutes(Node *p,int option1, int option2)
+{
+    if((p->minutes >= option1) && (p->minutes <= option2))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_mark1(Node *p,int option1, int option2)
+{
+    if((p->mark[0] >= option1) && (p->mark[0]<= option2))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_mark2(Node *p,int option1, int option2)
+{
+    if((p->mark[1] >= option1) && (p->mark[1]<= option2))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_mark3(Node *p,int option1, int option2)
+{
+    if((p->mark[2] >= option1) && (p->mark[2]<= option2))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int return_all_marks(Node *p,int option1, int option2)
+{
+    int count = 0;
+    for(int i=0;i<3;i++)
+    {
+        if((p->mark[i] >= option1)&&(p->mark[i] <= option2))
+            count++;
+    }
+    if(count==3)
+        return 1;
+    else
+        return 0;
+
+}
+
+Node* clone_node(Node* p)
+{
+    enum{maxlen = 128};
+    Node *new_node=NULL;
+
+    new_node = (Node*)malloc(sizeof(Node));
+    if(new_node)
+    {
+        new_node->id = p->id;
+        new_node->name = p->name;
+        new_node->subject = p->subject;
+        new_node->averenge=p->averenge;
+        new_node->age=p->age;
+        new_node->minutes=p->minutes;
+        new_node->mark[0]=p->mark[0];
+        new_node->mark[1]=p->mark[1];
+        new_node->mark[2]=p->mark[2];
+        new_node->prev = NULL;
+        new_node->next = NULL;
+    }
+    return new_node;
+}
+
+Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)(Node *p,int option1, int option2), int flag)
+{
+    Node *p = NULL,*temp = NULL, *p1 = NULL;
+    Head *p0 = NULL;
+    int i=0,count = 0;
+    if(flag == 1)
+    {
+        p0 = make_head();
+        p = my_head->first;
+        while(p!=NULL)
+        {
+            if(funcName(p,option1,option2))
+            {
+                temp = clone_node(p);
+                if(i==0)
+                {
+                    p0->first = temp;
+                    p0->cnt++;
+                }
+                else
+                {
+                    p1->next = temp;
+                    temp->prev = p1;
+                }
+                p1 = temp;
+                i++;
+            }
+            p = p->next;
+        }
+        p0->last = p1;
+        p0->last->next = NULL;
+        p0->first->prev = NULL;
+        p0->cnt = i;
+    }
+    else
+    {
+        p = my_head->first;
+        while(p!=NULL)
+        {
+            if(!funcName(p,option1,option2))
+            {
+                temp = p->next;
+                delete_node2(my_head,i+1);
+            }
+            else
+                temp = p->next;
+            p = temp;
+            i++;
+        }
+        p0 = my_head;
+    }
+    return p0;
+}
+
+Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, char str[128]), int flag)
+{
+    Node *p = NULL,*temp = NULL, *p1 = NULL;
+    Head *p0 = NULL;
+    int i=0,count = 0;
+    if(flag == 1)
+    {
+        p0 = make_head();
+        p = my_head->first;
+        while(p!=NULL)
+        {
+            if(funcName(p,str))
+            {
+                temp = clone_node(p);
+                if(i==0)
+                {
+                    p0->first = temp;
+                    p0->cnt++;
+                }
+                else
+                {
+                    p1->next = temp;
+                    temp->prev = p1;
+                }
+                p1 = temp;
+                i++;
+            }
+            p = p->next;
+        }
+        p0->last = p1;
+        p0->last->next = NULL;
+        p0->first->prev = NULL;
+        p0->cnt = i;
+    }
+    else
+    {
+        p = my_head->first;
+        while(p!=NULL)
+        {
+            if(!funcName(p,str))
+            {
+                temp = p->next;
+                delete_node2(my_head,i+1);
+            }
+            else
+                temp = p->next;
+            p = temp;
+            i++;
+        }
+        p0 = my_head;
+    }
+    return p0;
+}
+
+void MenuSearch(Head *p0)
+{
+    enum {maxlen = 128};
+    int option, option1, option2, option3, slen,count = 0;
+    char input[maxlen];
+    Head* p1 = NULL;
+    do
+    {
+        if(count == 0)
+        {
+            print_list(p0);
+            count++;
+        }
+        printf("Kinds of search:\n");
+        printf("0 - exit from menu\n");
+        printf("1 - by name\n");
+        printf("2 - by subject\n");
+        printf("3 - by averenge\n");
+        printf("4 - by age\n");
+        printf("5 - by minutes\n");
+        printf("6 - by first mark\n");
+        printf("7 - by second mark\n");
+        printf("8 - by third mark\n");
+        printf("9 - by all marks\n");
+        printf("Enter your choice: ");
+        option = safe_scand();
+
+        if((option>=1) && (option<=9))
+        {
+            switch(option)
+            {
+                case 1:
+                    printf("Enter the name that you want to search:\n");
+                    fflush(stdin);
+                    fgets(input,maxlen,stdin);
+                    slen=strlen(input);
+                    input[slen-1]='\0';
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct2(p0,input,return_name,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct2(p1,input,return_name,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 2:
+                    printf("Enter the subject that you want to search:\n");
+                    fflush(stdin);
+                    fgets(input,maxlen,stdin);
+                    slen=strlen(input);
+                    input[slen-1]='\0';
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct2(p0,input,return_subject,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct2(p1,input,return_subject,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 3:
+                    do
+                    {
+                        printf("Enter two numbers : ");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1,option2,return_averenge,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1,option2,return_averenge,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 4:
+                    do
+                    {
+                        printf("Enter two numbers : \n");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1,option2,return_age,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1,option2,return_age,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 5:
+                    do
+                    {
+                        printf("Enter two numbers : ");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>=option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>180))||((option2<0)||(option2>180)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1,option2,return_minutes,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1,option2,return_minutes,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 6:
+                    do
+                    {
+                        printf("Enter two numbers : \n");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>=option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1,option2,return_mark1,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1,option2,return_mark1,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 7:
+                    do
+                    {
+                        printf("Enter two numbers : \n");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>=option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1,option2,return_mark2,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1,option2,return_mark2,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 8:
+                    do
+                    {
+                        printf("Enter two numbers : \n");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>=option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1, option2, return_mark3,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1, option2, return_mark3,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+                case 9:
+                    do
+                    {
+                        printf("Enter two numbers : \n");
+                        option1 = safe_scand();
+                        option2 = safe_scand();
+                        if(option1>=option2)
+                        {
+                            option1=-1;
+                            option2=-1;
+                        }
+                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    if(p1 == NULL)
+                    {
+                        p1 = search_construct1(p0,option1,option2,return_all_marks,1);
+                    }
+                    else
+                    {
+                        p1 = search_construct1(p1,option1,option2,return_all_marks,2);
+                    }
+                    if(p1->cnt==0)
+                    {
+                        printf("Searched list is empty\n");
+                    }
+                    else
+                    {
+                        printf("Searched list\n");
+                        print_list(p1);
+                    }
+                    break;
+            }
+        }
+    } while(option != 0);
+    do
+    {
+    printf("Do you want to save this list in a separate file?\n");
+        printf("1 - YES\n");
+        printf("2 - NO\n");
+        option3 = safe_scand();
+    }while((option3<1)||(option3>2));
+    if(option3 == 1)
+    {
+        SaveNode(p1);
+    }
+    free(p1);
+}
+
+void delete_node2(Head *my_head, int index)
+{
+    Node *p = my_head -> first;
+    int i = 1;
+    while(i < index)
+    {
+        p = p -> next;
+        i++;
+    }
+    if(p == my_head->first)
+    {
+        my_head->first = p->next;
+        p->next->prev = NULL;
+    }
+    else if(p == my_head->last)
+    {
+        my_head->last = p->prev;
+        p->prev->next = NULL;
+    }
+    else
+    {
+        p->next->prev = p->prev;
+        p->prev->next = p->next;
+    }
+    free(p);
+    my_head->cnt -= 1;
+}
+
+void add_first(Head *my_head, Node *new_node)
+{
+    my_head->first = new_node;
+    my_head->last = new_node;;
+    my_head->cnt++;
+}
+
+Head* MenuAddFirst()
+{
+    Head *p0 = NULL;
+    Node *new_node = NULL;
+    p0 = make_head();
+    new_node = add_node();
+    add_first(p0,new_node);
+}
+
+void PrintHelp()
+{
+    printf("\nTry me bitch\n\n");
 }
