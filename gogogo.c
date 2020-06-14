@@ -136,6 +136,8 @@ Head* MenuAddFirst();
 
 void PrintHelp();
 
+void FreeNode2(Head *p0);
+
 int main()
 {
     MainMenu();
@@ -1878,7 +1880,7 @@ void MenuSearch(Head *p0)
         {
             SaveNode(p1);
         }
-        free(p1);
+        FreeNode2(p1);
     }
 }
 
@@ -1955,3 +1957,18 @@ void PrintHelp()
 {
     printf("\nTry me bitch\n\n");
 }
+
+void FreeNode2(Head *p0)
+{// ������������ ������ ��� ������
+    Node *p = NULL;
+    Node *p1 = NULL;
+    p = p0->first;
+    while (p != NULL)
+    {// �������� �� ������ � ����������� ������ ���� �� ������ �� �����
+        p1 = p->next;
+        free(p);
+        p = p1;
+    }
+    free(p0);
+}
+
