@@ -847,7 +847,6 @@ float safe_scanf()
     {
         search = strchr(str, '.');
         str[search - str + 3] = '\0';
-        free(search);
     }
     else
     str[strlen(str) - 1] = '\0';
