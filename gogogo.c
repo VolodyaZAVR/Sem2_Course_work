@@ -1484,6 +1484,7 @@ Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)
                 if(my_head!=NULL)
                 {
                     p = my_head->first;
+                    i = 0;
                 }
             }
             else
@@ -1550,6 +1551,7 @@ Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, c
                 if(my_head!=NULL)
                 {
                     p = my_head->first;
+                    i=0;
                 }
             }
             else
@@ -1910,8 +1912,9 @@ Head* delete_node2(Head *my_head, int index)
                 p->next->prev = p->prev;
                 p->prev->next = p->next;
             }
+            printf("why im here1\n");
             free(p);
-            my_head->cnt -= 1;
+            my_head->cnt --;
         }
         else if(my_head->cnt ==1)
         {
@@ -1919,10 +1922,12 @@ Head* delete_node2(Head *my_head, int index)
             free(p);
             my_head ->cnt = 0;
             free(my_head);
+            printf("why im here2\n");
             return NULL;
         }
         else if(my_head ->cnt ==0)
         {
+            printf("why im here3\n");
             free(my_head);
             return NULL;
         }
