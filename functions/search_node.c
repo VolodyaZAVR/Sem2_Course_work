@@ -4,12 +4,14 @@ void MenuSearch(Head *p0)
 {
     enum {maxlen = 128};
     int option, option1, option2, option3, slen,count = 0;
+    float option4, option5;
     char input[maxlen];
     Head* p1 = NULL;
     do
     {
         if(count == 0)
         {
+            cls();
             print_list(p0);
             count++;
         }
@@ -32,7 +34,7 @@ void MenuSearch(Head *p0)
             switch(option)
             {
                 case 1:
-                    printf("Enter the name that you want to search:\n");
+                    printf("Enter the name that you want to search: ");
                     fflush(stdin);
                     fgets(input,maxlen,stdin);
                     slen=strlen(input);
@@ -52,12 +54,13 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
                     break;
                 case 2:
-                    printf("Enter the subject that you want to search:\n");
+                    printf("Enter the subject that you want to search: ");
                     fflush(stdin);
                     fgets(input,maxlen,stdin);
                     slen=strlen(input);
@@ -77,6 +80,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -84,22 +88,24 @@ void MenuSearch(Head *p0)
                 case 3:
                     do
                     {
-                        printf("Enter two numbers : ");
-                        option1 = safe_scand();
-                        option2 = safe_scand();
-                        if(option1>option2)
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first float number: ");
+                        option4 = safe_scanf();
+                        printf("Enter second float number: ");
+                        option5 = safe_scanf();
+                        if(option4 > option5)
                         {
-                            option1=-1;
-                            option2=-1;
+                            option4=-1;
+                            option5=-1;
                         }
-                    } while(((option1<0)||(option1>100))||((option2<0)||(option2>100)));
+                    } while(((option4<0)||(option4>100))||((option5<0)||(option5>100)));
                     if(p1 == NULL)
                     {
-                        p1 = search_construct1(p0,option1,option2,return_averenge,1);
+                        p1 = search_construct3(p0,option4,option5,return_averenge,1);
                     }
                     else
                     {
-                        p1 = search_construct1(p1,option1,option2,return_averenge,2);
+                        p1 = search_construct3(p1,option4,option5,return_averenge,2);
                     }
                     if(p1==NULL)
                     {
@@ -108,6 +114,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -115,8 +122,10 @@ void MenuSearch(Head *p0)
                 case 4:
                     do
                     {
-                        printf("Enter two numbers : \n");
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first number: ");
                         option1 = safe_scand();
+                        printf("Enter second number: ");
                         option2 = safe_scand();
                         if(option1>option2)
                         {
@@ -139,6 +148,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -146,8 +156,10 @@ void MenuSearch(Head *p0)
                 case 5:
                     do
                     {
-                        printf("Enter two numbers : ");
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first number: ");
                         option1 = safe_scand();
+                        printf("Enter second number: ");
                         option2 = safe_scand();
                         if(option1>=option2)
                         {
@@ -170,6 +182,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -177,8 +190,10 @@ void MenuSearch(Head *p0)
                 case 6:
                     do
                     {
-                        printf("Enter two numbers : \n");
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first number: ");
                         option1 = safe_scand();
+                        printf("Enter second number: ");
                         option2 = safe_scand();
                         if(option1>=option2)
                         {
@@ -201,6 +216,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -208,8 +224,10 @@ void MenuSearch(Head *p0)
                 case 7:
                     do
                     {
-                        printf("Enter two numbers : \n");
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first number: ");
                         option1 = safe_scand();
+                        printf("Enter second number: ");
                         option2 = safe_scand();
                         if(option1>=option2)
                         {
@@ -232,6 +250,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -239,8 +258,10 @@ void MenuSearch(Head *p0)
                 case 8:
                     do
                     {
-                        printf("Enter two numbers : \n");
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first number: ");
                         option1 = safe_scand();
+                        printf("Enter second number: ");
                         option2 = safe_scand();
                         if(option1>=option2)
                         {
@@ -263,6 +284,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -270,8 +292,10 @@ void MenuSearch(Head *p0)
                 case 9:
                     do
                     {
-                        printf("Enter two numbers : \n");
+                        printf("Enter two numbers (first number is lower then second)\n");
+                        printf("Enter first number: ");
                         option1 = safe_scand();
+                        printf("Enter second number: ");
                         option2 = safe_scand();
                         if(option1>=option2)
                         {
@@ -294,6 +318,7 @@ void MenuSearch(Head *p0)
                     }
                     else
                     {
+                        cls();
                         printf("Searched list\n");
                         print_list(p1);
                     }
@@ -306,10 +331,11 @@ void MenuSearch(Head *p0)
         do
         {
             printf("Do you want to save this list in a separate file?\n");
+            printf("0 - NO\n");
             printf("1 - YES\n");
-            printf("2 - NO\n");
+            printf("Enter your choice: ");
             option3 = safe_scand();
-        }while((option3<1)||(option3>2));
+        }while((option3<0)||(option3>1));
         if(option3 == 1)
         {
             SaveNode(p1);
@@ -452,6 +478,73 @@ Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, c
     return p0;
 }
 
+Head* search_construct3(Head *my_head, float option1, float option2 ,int (*funcName)(Node *p,float option1, float option2), int flag)
+{
+    Node *p = NULL,*temp = NULL, *p1 = NULL;
+    Head *p0 = NULL;
+    int i=0;
+    if(flag == 1)
+    {
+        p0 = make_head();
+        p = my_head->first;
+        while(p!=NULL)
+        {
+            if(funcName(p,option1,option2))
+            {
+                temp = clone_node(p);
+                if(i==0)
+                {
+                    p0->first = temp;
+                    p0->cnt++;
+                }
+                else
+                {
+                    p1->next = temp;
+                    temp->prev = p1;
+                }
+                p1 = temp;
+                i++;
+            }
+            p = p->next;
+        }
+        if(p0->cnt == 0)
+        {
+            free(p0);
+            p0 = NULL;
+        }
+        else
+        {
+            p0->last = p1;
+            p0->last->next = NULL;
+            p0->first->prev = NULL;
+            p0->cnt = i;
+        }
+    }
+    else
+    {
+        p = my_head->first;
+        while((p!=NULL)&&(my_head!=NULL))
+        {
+            if(!funcName(p,option1,option2))
+            {
+                my_head = delete_node2(my_head,i+1);
+                if(my_head!=NULL)
+                {
+                    p = my_head->first;
+                    i = 0;
+                }
+            }
+            else
+            {
+                p = p->next;
+                i++;
+            }
+        }
+        p0 = my_head;
+    }
+    return p0;
+}
+
 int return_name(Node *p, char str[128])
 {
     if(strcmp(p->name,str)==0)
@@ -476,7 +569,7 @@ int return_subject(Node *p, char str[128])
     }
 }
 
-int return_averenge(Node *p,int option1, int option2)
+int return_averenge(Node *p,float option1, float option2)
 {
     if((p->averenge >= option1)&&(p->averenge <= option2))
     {

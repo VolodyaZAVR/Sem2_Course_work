@@ -7,6 +7,7 @@ void MenuDelete(Head *p0)
     {
         do
         {
+            cls();
             print_list(p0);
             printf("Select id that you want to delete:\n");
             printf("0 - exit from menu\n");

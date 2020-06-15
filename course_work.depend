@@ -1,19 +1,19 @@
 # depslib dependency file v1.0
-1592109911 source:c:\users\hispe\documents\workspace\Программирование\course_work\main.c
+1592189833 source:c:\users\hispe\documents\workspace\Программирование\course_work\main.c
 	<stdio.h>
 	<stdlib.h>
 	"headers/menu.h"
 
-1592110125 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\io.c
+1592189595 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\io.c
 	"../headers/io.h"
 
-1592110125 c:\users\hispe\documents\workspace\Программирование\course_work\headers\io.h
+1592189247 c:\users\hispe\documents\workspace\Программирование\course_work\headers\io.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<malloc.h>
 
-1592107732 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\add_node.c
+1592189745 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\add_node.c
 	"../headers/add_node.h"
 
 1592108488 c:\users\hispe\documents\workspace\Программирование\course_work\headers\add_node.h
@@ -27,17 +27,17 @@
 
 1592107130 c:\users\hispe\documents\workspace\Программирование\course_work\headers\structure.h
 
-1592108439 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\create_node.c
+1592178550 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\create_node.c
 	"../headers/create_node.h"
 
-1592108439 c:\users\hispe\documents\workspace\Программирование\course_work\headers\create_node.h
+1592178564 c:\users\hispe\documents\workspace\Программирование\course_work\headers\create_node.h
 	"structure.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<malloc.h>
 
-1592108730 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\edit_node.c
+1592189431 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\edit_node.c
 	"../headers/edit_node.h"
 
 1592108730 c:\users\hispe\documents\workspace\Программирование\course_work\headers\edit_node.h
@@ -49,7 +49,7 @@
 	<string.h>
 	<malloc.h>
 
-1592108874 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\delete_node.c
+1592178598 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\delete_node.c
 	"../headers/delete_node.h"
 
 1592108874 c:\users\hispe\documents\workspace\Программирование\course_work\headers\delete_node.h
@@ -61,7 +61,7 @@
 	<string.h>
 	<malloc.h>
 
-1592109049 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\swap_node.c
+1592178850 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\swap_node.c
 	"../headers/swap_node.h"
 
 1592109049 c:\users\hispe\documents\workspace\Программирование\course_work\headers\swap_node.h
@@ -73,7 +73,7 @@
 	<string.h>
 	<malloc.h>
 
-1592109260 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\sort_node.c
+1592178886 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\sort_node.c
 	"../headers/sort_node.h"
 
 1592109261 c:\users\hispe\documents\workspace\Программирование\course_work\headers\sort_node.h
@@ -85,10 +85,10 @@
 	<string.h>
 	<malloc.h>
 
-1592109559 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\search_node.c
+1592188590 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\search_node.c
 	"../headers/search_node.h"
 
-1592109850 c:\users\hispe\documents\workspace\Программирование\course_work\headers\search_node.h
+1592177341 c:\users\hispe\documents\workspace\Программирование\course_work\headers\search_node.h
 	"io.h"
 	"structure.h"
 	"create_node.h"
@@ -107,7 +107,7 @@
 	<string.h>
 	<malloc.h>
 
-1592109850 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\copy_node.c
+1592178046 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\copy_node.c
 	"../headers/copy_node.h"
 
 1592109850 c:\users\hispe\documents\workspace\Программирование\course_work\headers\copy_node.h
@@ -119,10 +119,10 @@
 	<string.h>
 	<malloc.h>
 
-1592109850 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\save_node.c
+1592178735 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\save_node.c
 	"../headers/save_node.h"
 
-1592108439 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\menu.c
+1592190645 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\menu.c
 	"../headers/menu.h"
 
 1592109936 c:\users\hispe\documents\workspace\Программирование\course_work\headers\menu.h

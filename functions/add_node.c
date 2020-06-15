@@ -6,6 +6,7 @@ void MenuAdd(Head* p0)
     int index, choise;
     do
     {
+        cls();
         print_list(p0);
         printf("You want to insert after or before?\n");
         printf("0 - exit from menu\n");
@@ -19,6 +20,7 @@ void MenuAdd(Head* p0)
             {
                 do
                 {
+                    cls();
                     print_list(p0);
                     printf("Select id that you want to insert before:\n");
                     printf("0 - exit from menu\n");
@@ -37,6 +39,7 @@ void MenuAdd(Head* p0)
             {
                 do
                 {
+                    cls();
                     print_list(p0);
                     printf("Select id that you want to insert after:\n");
                     printf("0 - exit from menu\n");
@@ -58,40 +61,49 @@ void MenuAdd(Head* p0)
 
 Node* add_node()
 {
-    enum {maxlen = 80};
-    char str[maxlen];
+    enum{maxlen = 128};
+    char *str;
     float option1;
-    int option2 , slen;
+    int option2;
     Node *new_node=NULL;
     new_node = (Node*)malloc(sizeof(Node));
     new_node->name = (char*)malloc(maxlen*sizeof(char));
     new_node->subject = (char*)malloc(maxlen*sizeof(char));
-    printf("Enter name\n");
-    fflush(stdin);
-    fgets(str,maxlen,stdin);
-    slen=strlen(str);
-    str[slen-1]='\0';
+    printf("Enter name: ");
+    str = safe_scans();
     strcpy(new_node->name,str);
-    printf("Enter subject\n");
-    fflush(stdin);
-    fgets(str,maxlen,stdin);
-    slen=strlen(str);
-    str[slen-1]='\0';
+    printf("Enter subject: ");
+    str = safe_scans();
     strcpy(new_node->subject,str);
-    printf("Enter age\n");
-    option2 = safe_scand();
+    do
+    {
+        printf("Enter age: ");
+        option2 = safe_scand();
+    } while((option2<0)||(option2>100));
     new_node->age = option2;
-    printf("Enter minutes\n");
-    option2 = safe_scand();
+    do
+    {
+        printf("Enter minutes: ");
+        option2 = safe_scand();
+    } while((option2<0)||(option2>180));
     new_node->minutes = option2;
-    printf("Enter first mark\n");
-    option2 = safe_scand();
+    do
+    {
+        printf("Enter first mark: ");
+        option2 = safe_scand();
+    } while((option2<0)||(option2>100));
     new_node->mark[0] = option2;
-    printf("Enter second mark\n");
-    option2 = safe_scand();
+    do
+    {
+        printf("Enter second mark: ");
+        option2 = safe_scand();
+    }while((option2<0)||(option2>100));
     new_node->mark[1] = option2;
-    printf("Enter third mark\n");
-    option2 = safe_scand();
+    do
+    {
+        printf("Enter third mark: ");
+        option2 = safe_scand();
+    }while((option2<0)||(option2>100));
     new_node->mark[2] = option2;
     option1 = (new_node->mark[0]+new_node->mark[1]+new_node->mark[2])/3.;
     new_node->averenge = option1;

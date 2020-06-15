@@ -16,11 +16,13 @@ Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)
 
 Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, char str[128]), int flag);
 
+Head* search_construct3(Head *my_head, float option1, float option2 ,int (*funcName)(Node *p,float option1, float option2), int flag);
+
 int return_name(Node *p, char str[128]);
 
 int return_subject(Node *p, char str[128]);
 
-int return_averenge(Node *p,int option1, int option2);
+int return_averenge(Node *p,float option1, float option2);
 
 int return_age(Node *p,int option1, int option2);
 

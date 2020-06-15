@@ -5,6 +5,7 @@ void MenuCopy(Head *p0)
     int index1, index2;
     do
     {
+        cls();
         print_list(p0);
         printf("Select id's that you want to copy:\n");
         printf("0 - exit from menu\n");

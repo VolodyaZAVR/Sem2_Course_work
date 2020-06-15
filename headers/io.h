@@ -14,4 +14,6 @@ int safe_scand();
 
 float safe_scanf();
 
+char *safe_scans();
+
 #endif // IO_H_INCLUDED

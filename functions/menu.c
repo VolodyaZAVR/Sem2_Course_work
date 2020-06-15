@@ -38,7 +38,7 @@ void MainMenu()
         }
         else
         {
-            printf("\nWrong number, try again\n\n");
+            printf("Wrong number\n");
         }
     }while(choise!=0);
 }
@@ -50,9 +50,10 @@ Head* GettingFile()
     FILE* df;
     Head *p0;
     int exit = 0, slen;
+    cls();
     do
     {
-        printf("Enter the name of the file in which the list is stored :\n");
+        printf("Enter the name of the file in which the list is stored : ");
         fflush(stdin);
         fgets(file_name,maxlen,stdin);
         slen=strlen(file_name);
@@ -79,6 +80,7 @@ Head* MenuAddFirst()
 {
     Head *p0 = NULL;
     Node *new_node = NULL;
+    cls();
     p0 = make_head();
     new_node = add_node();
     add_first(p0,new_node);
@@ -87,7 +89,18 @@ Head* MenuAddFirst()
 
 void PrintHelp()
 {
-    printf("\nTry me bitch\n\n");
+    cls();
+    printf("This program is designed to work with a list.\n"
+            "At the beginning of the program, you can open an existing list or create it\n\n"
+            "In the next menu you can select one of the following functions: \n"
+            "add node - add a new node to the existing list\n"
+            "edit node - edit the selected node for any field\n"
+            "delete node - delete an node from the list (you cannot completely delete the list with this function)\n"
+            "swap_node - swap nodes\n"
+            "sort node - sort the list by the selected field\n"
+            "search at node - search in the list according to the specified parameters (a complex search and further saving of the list is possible)\n"
+            "copy node - copy values ​​from one node to another\n"
+            "save node - save the list to a file (you can save the list as an existing file or create it yourself)\n\n");
 }
 
 Head* MakeNode(FILE *df)
@@ -116,7 +129,7 @@ Head* MakeNode(FILE *df)
                 p = create_node(s2,i);
                 if(p==NULL)
                 {
-                    puts("Structure not allocated!");
+                    puts("Structure not allocated!\n");
                     i=n+1;
                 }
                 else
@@ -135,7 +148,7 @@ Head* MakeNode(FILE *df)
                 }
             }
             else
-                puts("Error at data reading!");
+                puts("Error at data reading!\n");
         }
         p0->last = p;
         p0->last->next = NULL;
@@ -159,6 +172,7 @@ void Menu(Head* p0)
     int choise;
     do
     {
+        cls();
         print_list(p0);
         printf("Chose what are you want to do :\n");
         printf("0 - go to exit\n");

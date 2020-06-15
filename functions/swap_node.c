@@ -5,6 +5,7 @@ void MenuSwap(Head* p0)
     int index1, index2;
     do
     {
+        cls();
         print_list(p0);
         printf("Select id's that you want to swipe (first index is lower then second):\n");
         printf("0 - exit from menu\n");

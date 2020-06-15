@@ -10,7 +10,7 @@ void SaveNode(Head* p0)
     int slen, exit;
     do
     {
-        printf("Enter the name of the file in which the list would save :\n");
+        printf("Enter the name of the file in which the list would save: ");
         fflush(stdin);
         fgets(file_name,maxlen,stdin);
         slen=strlen(file_name);
@@ -52,7 +52,7 @@ void SaveNode(Head* p0)
         }
         else
         {
-            printf("File not found!\n");
+            printf("File can't be created!\n");
         }
     }while(exit==0);
 }

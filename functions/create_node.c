@@ -13,9 +13,9 @@ Head *make_head()
     return ph;
 }
 
-Node *create_node(char **str, int id) // ������������� ����
+Node *create_node(char **str, int id)
 {
-    Node *new_node = NULL; // �������� ������ ��� ���� � ��������� ��� � ������� �����
+    Node *new_node = NULL;
     new_node = (Node *) malloc(sizeof(Node));
     new_node->id = id;
     new_node->name = str[0];
@@ -35,7 +35,7 @@ Node *create_node(char **str, int id) // �������������
     free(str[6]);
     free(str[7]);
     free(str);
-    return new_node; // ���������� ����� ����
+    return new_node;
 }
 
 void add_first(Head *my_head, Node *new_node)
@@ -57,7 +57,7 @@ void print_list(Head *my_head)
     print_header();
     while(p!=NULL)
     {
-        printf("|%3d|%15s |%8s |%3.2f    |%3d |%4d |%5d |%5d |%5d |\n",
+        printf("|%3d|%15s |%8s | %3.2f   |%3d |%4d |%5d |%5d |%5d |\n",
             p->id,p->name,p->subject,p->averenge,p->age,p->minutes,p->mark[0],p->mark[1],p->mark[2]);
         p = p->next;
     }
@@ -87,36 +87,41 @@ Node* ssearch(Head* p0, int index)
     return p;
 }
 
-void insert_after(Head *head, Node *new_node, Node *current_node) {// ������� ���� ����� ��������
-    if (current_node == head->last) {
+void insert_after(Head *my_head, Node *new_node, Node *current_node)
+{
+    if (current_node == my_head->last)
+    {
         current_node->next = new_node;
         new_node->prev = current_node;
         new_node->next = NULL;
-        head->last=new_node;
-
-    } else {
+        my_head->last=new_node;
+    }
+    else
+    {
         new_node->next = current_node->next;
         new_node->prev = current_node;
         current_node->next = new_node;
     }
-    head->cnt++;
+    my_head->cnt++;
 }
 
-void insert_before(Head *head, Node *new_node, Node *current_node) {// ������� ���� ����� ������������ ���������
-    // ��������� ��������� �� ��������� � ���������� ����� �����
-    if (current_node == head->first)// ���� ��� ����� ������ ������� ��������� ������ ������
+void insert_before(Head *my_head, Node *new_node, Node *current_node)
+{
+    if (current_node == my_head->first)
     {
-        head->first = new_node;
+        my_head->first = new_node;
         new_node->next = current_node;
         new_node->prev = NULL;
         current_node->prev = new_node;
-    } else {
+    }
+    else
+    {
         current_node->prev->next = new_node;
         new_node->prev = current_node->prev;
         new_node->next = current_node;
         current_node->prev = new_node;
     }
-    head->cnt++;
+    my_head->cnt++;
 }
 
 void copy_node(Head *p0, int index1, int index2)
@@ -136,9 +141,7 @@ void copy_node(Head *p0, int index1, int index2)
 
 Node* clone_node(Node* p)
 {
-    enum{maxlen = 128};
     Node *new_node=NULL;
-
     new_node = (Node*)malloc(sizeof(Node));
     if(new_node)
     {
@@ -159,13 +162,8 @@ Node* clone_node(Node* p)
 
 void delete_node(Head *my_head, int index)
 {
-    Node *p = my_head -> first;
-    int i = 1;
-    while(i < index)
-    {
-        p = p -> next;
-        i++;
-    }
+    Node *p = NULL;
+    p = ssearch(my_head,index);
     if(p == my_head->first)
     {
         my_head->first = p->next;
@@ -190,17 +188,11 @@ void delete_node(Head *my_head, int index)
 Head* delete_node2(Head *my_head, int index)
 {
     Node *p = NULL;
-    int i = 1;
     if(my_head != NULL)
     {
-        p = my_head->first;
         if(my_head->cnt>1)
         {
-            while(i < index)
-            {
-                p = p -> next;
-                    i++;
-            }
+            p = ssearch(my_head,index);
             if(p == my_head->first)
             {
                 my_head->first = p->next;
@@ -216,7 +208,6 @@ Head* delete_node2(Head *my_head, int index)
                 p->next->prev = p->prev;
                 p->prev->next = p->next;
             }
-            printf("why im here1\n");
             free(p);
             my_head->cnt --;
         }
@@ -226,12 +217,10 @@ Head* delete_node2(Head *my_head, int index)
             free(p);
             my_head ->cnt = 0;
             free(my_head);
-            printf("why im here2\n");
             return NULL;
         }
         else if(my_head ->cnt ==0)
         {
-            printf("why im here3\n");
             free(my_head);
             return NULL;
         }
@@ -240,7 +229,7 @@ Head* delete_node2(Head *my_head, int index)
 }
 
 void FreeNode(Head *p0)
-{// ������������ ������ ��� ������
+{
     Node *p = NULL;
     Node *p1 = NULL;
     if(p0!=NULL)
@@ -249,7 +238,7 @@ void FreeNode(Head *p0)
         {
             p = p0->first;
             while (p != NULL)
-            {// �������� �� ������ � ����������� ������ ���� �� ������ �� �����
+            {
                 free(p->name);
                 free(p->subject);
                 p1 = p->next;
@@ -262,12 +251,12 @@ void FreeNode(Head *p0)
 }
 
 void FreeNode2(Head *p0)
-{// ������������ ������ ��� ������
+{
     Node *p = NULL;
     Node *p1 = NULL;
     p = p0->first;
     while (p != NULL)
-    {// �������� �� ������ � ����������� ������ ���� �� ������ �� �����
+    {
         p1 = p->next;
         free(p);
         p = p1;

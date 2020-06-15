@@ -123,4 +123,39 @@ float safe_scanf()
     return res;
 }
 
+char *safe_scans()
+{
+    enum {maxlen = 128};
+    char *str = NULL;
+    int temp, slen , n=0;
+    do
+    {
+        str = malloc(maxlen * sizeof(char));
+        if (str != NULL)
+        {
+            fflush(stdin);
+            n = 0;
+            fgets(str, maxlen, stdin);
+            slen = strlen(str);
+            for (int i = 0; i < slen; i++)
+            {
+                temp = str[i];
+                if (temp >= 48 && temp <= 57)
+                    n++;
+            }
+            if (str[0] == ' ')
+                n++;
+            if (str[strlen(str) - 2] == ' ')
+                n++;
+            if (n > 0)
+            {
+                free(str);
+                printf("Incorrect string\n");
+                printf("Your string:");
+            }
+        }
+    } while (n > 0);
+    str[strlen(str) - 1] = '\0';
+    return (str);
+}
 

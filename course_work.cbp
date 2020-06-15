@@ -31,6 +31,51 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="functions/add_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/copy_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/create_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/delete_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/edit_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/io.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/save_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/search_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/sort_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="functions/swap_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="headers/add_node.h" />
+		<Unit filename="headers/copy_node.h" />
+		<Unit filename="headers/create_node.h" />
+		<Unit filename="headers/delete_node.h" />
+		<Unit filename="headers/edit_node.h" />
+		<Unit filename="headers/io.h" />
+		<Unit filename="headers/menu.h" />
+		<Unit filename="headers/save_node.h" />
+		<Unit filename="headers/search_node.h" />
+		<Unit filename="headers/sort_node.h" />
+		<Unit filename="headers/structure.h" />
+		<Unit filename="headers/swap_node.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

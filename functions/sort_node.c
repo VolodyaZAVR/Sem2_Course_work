@@ -5,6 +5,7 @@ void MenuSort(Head *p0)
     int option, way;
     do
     {
+        cls();
         print_list(p0);
         printf("Kinds of sort:\n");
         printf("0 - exit from menu (id's will replace)\n");
