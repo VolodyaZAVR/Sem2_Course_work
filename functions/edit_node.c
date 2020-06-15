@@ -51,11 +51,13 @@ void edit_cart(Head* p0, int index, int option)
             printf("Enter new name: ");
             str = safe_scans();
             strcpy(p1->name,str);
+            free(str);
             break;
         case 2:
             printf("Enter new subject: ");
             str = safe_scans();
             strcpy(p1->subject,str);
+            free(str);
             break;
         case 3:
             do

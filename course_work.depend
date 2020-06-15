@@ -13,7 +13,7 @@
 	<string.h>
 	<malloc.h>
 
-1592189745 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\add_node.c
+1592191306 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\add_node.c
 	"../headers/add_node.h"
 
 1592108488 c:\users\hispe\documents\workspace\Программирование\course_work\headers\add_node.h
@@ -37,7 +37,7 @@
 	<string.h>
 	<malloc.h>
 
-1592189431 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\edit_node.c
+1592191326 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\edit_node.c
 	"../headers/edit_node.h"
 
 1592108730 c:\users\hispe\documents\workspace\Программирование\course_work\headers\edit_node.h

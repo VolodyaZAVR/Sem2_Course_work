@@ -2,10 +2,9 @@
 
 void MenuSearch(Head *p0)
 {
-    enum {maxlen = 128};
-    int option, option1, option2, option3, slen,count = 0;
+    int option, option1, option2, option3, count = 0;
     float option4, option5;
-    char input[maxlen];
+    char *input;
     Head* p1 = NULL;
     do
     {
@@ -35,10 +34,7 @@ void MenuSearch(Head *p0)
             {
                 case 1:
                     printf("Enter the name that you want to search: ");
-                    fflush(stdin);
-                    fgets(input,maxlen,stdin);
-                    slen=strlen(input);
-                    input[slen-1]='\0';
+                    input = safe_scans();
                     if(p1 == NULL)
                     {
                         p1 = search_construct2(p0,input,return_name,1);
@@ -58,13 +54,11 @@ void MenuSearch(Head *p0)
                         printf("Searched list\n");
                         print_list(p1);
                     }
+                    free(input);
                     break;
                 case 2:
                     printf("Enter the subject that you want to search: ");
-                    fflush(stdin);
-                    fgets(input,maxlen,stdin);
-                    slen=strlen(input);
-                    input[slen-1]='\0';
+                    input = safe_scans();
                     if(p1 == NULL)
                     {
                         p1 = search_construct2(p0,input,return_subject,1);
@@ -84,6 +78,7 @@ void MenuSearch(Head *p0)
                         printf("Searched list\n");
                         print_list(p1);
                     }
+                    free(input);
                     break;
                 case 3:
                     do
@@ -411,7 +406,7 @@ Head* search_construct1(Head *my_head, int option1, int option2 ,int (*funcName)
     return p0;
 }
 
-Head* search_construct2(Head *my_head, char str[128] ,int (*funcName)(Node *p, char str[128]), int flag)
+Head* search_construct2(Head *my_head, char *str ,int (*funcName)(Node *p, char *str), int flag)
 {
     Node *p = NULL,*temp = NULL, *p1 = NULL;
     Head *p0 = NULL;
@@ -545,7 +540,7 @@ Head* search_construct3(Head *my_head, float option1, float option2 ,int (*funcN
     return p0;
 }
 
-int return_name(Node *p, char str[128])
+int return_name(Node *p, char *str)
 {
     if(strcmp(p->name,str)==0)
     {
@@ -557,7 +552,7 @@ int return_name(Node *p, char str[128])
     }
 }
 
-int return_subject(Node *p, char str[128])
+int return_subject(Node *p, char *str)
 {
     if(strcmp(p->subject,str)==0)
     {

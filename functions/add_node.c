@@ -72,9 +72,11 @@ Node* add_node()
     printf("Enter name: ");
     str = safe_scans();
     strcpy(new_node->name,str);
+    free(str);
     printf("Enter subject: ");
     str = safe_scans();
     strcpy(new_node->subject,str);
+    free(str);
     do
     {
         printf("Enter age: ");
