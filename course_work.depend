@@ -4,7 +4,7 @@
 	<stdlib.h>
 	"headers/menu.h"
 
-1592189595 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\io.c
+1592235732 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\io.c
 	"../headers/io.h"
 
 1592189247 c:\users\hispe\documents\workspace\Программирование\course_work\headers\io.h
@@ -85,7 +85,7 @@
 	<string.h>
 	<malloc.h>
 
-1592188590 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\search_node.c
+1592191527 source:c:\users\hispe\documents\workspace\Программирование\course_work\functions\search_node.c
 	"../headers/search_node.h"
 
 1592177341 c:\users\hispe\documents\workspace\Программирование\course_work\headers\search_node.h
