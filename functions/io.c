@@ -12,20 +12,20 @@ void cls()
 }
 
 char **simple_split(char *str, int length, char sep)
-{ // ���������� ������ �� �����
+{
     char **str_array = NULL;
     int i, j, k, m;
     int key;
     for (j = 0, m = 0; j < length; j++) {
-        if (str[j] == sep) m++;// ������� ���-�� ������ ������������
+        if (str[j] == sep) m++;
     }
 
     key = 0;
-    str_array = (char **) malloc((m + 1) * sizeof(char *));// �������� ������ ��� ������ �����
+    str_array = (char **) malloc((m + 1) * sizeof(char *));
     if (str_array != NULL) {
         for (i = 0; i <= m; i++) {
             str_array[i] = (char *) malloc(length * sizeof(char));
-            if (str_array[i] != NULL) key = 1;// �������� �� ������ ��� ���� �����������
+            if (str_array[i] != NULL) key = 1;
             else {
                 key = 0;
                 i = m;
@@ -34,7 +34,7 @@ char **simple_split(char *str, int length, char sep)
         if (key) {
             k = 0;
             m = 0;
-            for (j = 0; j < length; j++) {// ��� ������ ���� ������� , ��������� ��������������� ������� ������� �����
+            for (j = 0; j < length; j++) {
                 if (str[j] != sep) str_array[m][j - k] = str[j];
                 else {
                     str_array[m][j - k] = '\0';
@@ -46,7 +46,7 @@ char **simple_split(char *str, int length, char sep)
         }
     }
     str_array[m][j - k] = '\0';
-    return str_array;// ���������� ��������� �� ������ �����
+    return str_array;
 }
 
 int safe_scand()
